@@ -16,7 +16,8 @@ This is a personal project - no pull requests are accepted at this time.
 - Chats
 - Vision Model Support 
 - Choose your model 
-- Delete Chats 
+- Delete Chats
+- **Copy message button** - One-click copy for user and assistant messages 
 
 
 ## Screenshots 📸

@@ -237,3 +237,18 @@ LM Studio Chat WebUIは、ローカルでホストされているLM Studio API�
 5. THE System SHALL すべてのボタンにFont Awesomeアイコンを使用して視覚的な手がかりを提供する
 6. THE System SHALL ホバー時にボタンの色を変更してインタラクティブ性を示す
 7. THE System SHALL プレースホルダーテキストを使用して入力フィールドの目的を明確にする
+
+### 要件18: メッセージコピー機能
+
+**ユーザーストーリー:** ユーザーとして、ユーザーメッセージとアシスタントメッセージをワンクリックでクリップボードにコピーできるようにしたい。これにより、メッセージ内容を他のアプリケーションで簡単に再利用できる。
+
+#### 受入基準
+
+1. WHEN メッセージが表示される THEN THE System SHALL 各メッセージにコピーボタンを追加する
+2. WHEN ユーザーがメッセージにホバーする THEN THE System SHALL コピーボタンを表示する（不透明度0から0.8に変更）
+3. WHEN ユーザーがコピーボタンをクリックする THEN THE System SHALL メッセージのテキストコンテンツ（HTMLタグを除く）をクリップボードにコピーする
+4. WHEN コピーが成功する THEN THE System SHALL ボタンのアイコンをコピーアイコンからチェックマークに変更する
+5. WHEN コピー成功後2秒経過する THEN THE System SHALL ボタンのアイコンを元のコピーアイコンに戻す
+6. WHEN コピーが失敗する THEN THE System SHALL エラーをコンソールに記録する
+7. THE System SHALL コピーボタンをメッセージの右上に配置する
+8. THE System SHALL コピーボタンにツールチップ「Copy message」を表示する

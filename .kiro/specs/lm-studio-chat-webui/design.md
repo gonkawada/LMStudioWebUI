@@ -887,3 +887,129 @@ test('空メッセージの送信防止', () => {
 4. **マルチモーダル拡張**: 音声入力、ファイルアップロード（PDF、テキストファイル）
 
 5. **プラグインシステム**: カスタムレンダラーやプロセッサーの追加
+
+
+### プロパティ43: メッセージコピーボタンの追加
+
+*任意の*メッセージが表示される際、システムは各メッセージにコピーボタンを追加する必要があります。
+
+**検証: 要件 18.1**
+
+### プロパティ44: メッセージコピーボタンのホバー表示
+
+*任意の*メッセージに対して、ユーザーがホバーした際、システムはコピーボタンの不透明度を0から0.8に変更して表示する必要があります。
+
+**検証: 要件 18.2**
+
+### プロパティ45: メッセージコピー機能
+
+*任意の*コピーボタンがクリックされた際、システムはメッセージのテキストコンテンツ（HTMLタグを除く）をクリップボードにコピーする必要があります。
+
+**検証: 要件 18.3**
+
+### プロパティ46: コピー成功時のフィードバック
+
+*任意の*コピー操作が成功した際、システムはボタンのアイコンをコピーアイコンからチェックマークに変更し、2秒後に元のコピーアイコンに戻す必要があります。
+
+**検証: 要件 18.4, 18.5**
+
+### プロパティ47: コピーエラーハンドリング
+
+*任意の*コピー操作が失敗した際、システムはエラーをコンソールに記録する必要があります。
+
+**検証: 要件 18.6**
+
+## コンポーネント: メッセージコピーボタン
+
+### 責務
+各メッセージにコピーボタンを追加し、メッセージ内容をクリップボードにコピーする機能を提供します。
+
+### 実装詳細
+
+**DOM構造**:
+```html
+<div class="message">
+  <!-- メッセージヘッダー、コンテンツなど -->
+  <button class="copy-message-btn" title="Copy message">
+    <i class="fas fa-copy"></i>
+  </button>
+</div>
+```
+
+**CSSスタイル**:
+```css
+.copy-message-btn {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background-color: var(--accent-color);
+  color: var(--text-color);
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.7rem;
+  padding: 3px 8px;
+  opacity: 0;
+  transition: opacity 0.2s;
+  z-index: 5;
+}
+.message:hover .copy-message-btn { opacity: 0.8; }
+.copy-message-btn:hover { opacity: 1 !important; }
+```
+
+**JavaScript実装**:
+```javascript
+// addMessage関数内でコピーボタンを追加
+const copyMessageBtn = document.createElement('button');
+copyMessageBtn.className = 'copy-message-btn';
+copyMessageBtn.innerHTML = '<i class="fas fa-copy"></i>';
+copyMessageBtn.title = 'Copy message';
+copyMessageBtn.addEventListener('click', () => {
+  const textContent = contentDiv.innerText;
+  navigator.clipboard.writeText(textContent)
+    .then(() => {
+      copyMessageBtn.innerHTML = '<i class="fas fa-check"></i>';
+      setTimeout(() => {
+        copyMessageBtn.innerHTML = '<i class="fas fa-copy"></i>';
+      }, 2000);
+    })
+    .catch(err => {
+      console.error('Failed to copy message: ', err);
+    });
+});
+messageDiv.appendChild(copyMessageBtn);
+```
+
+### 主要機能
+
+1. **ボタン表示制御**
+   - デフォルトで非表示（opacity: 0）
+   - メッセージホバー時に表示（opacity: 0.8）
+   - ボタンホバー時に完全表示（opacity: 1）
+
+2. **コピー機能**
+   - Clipboard APIを使用してテキストをコピー
+   - HTMLタグを除いたプレーンテキストをコピー
+   - 非同期処理でエラーハンドリング
+
+3. **視覚的フィードバック**
+   - コピー成功時にアイコンをチェックマークに変更
+   - 2秒後に元のコピーアイコンに戻る
+   - トランジション効果で滑らかな表示切り替え
+
+### エラーハンドリング
+
+**コピー失敗時**:
+```javascript
+.catch(err => {
+  console.error('Failed to copy message: ', err);
+});
+```
+- エラーをコンソールに記録
+- ユーザーには視覚的なエラー表示なし（ブラウザのClipboard API制限による）
+
+### ブラウザ互換性
+
+- Clipboard APIはHTTPS環境またはlocalhostでのみ動作
+- 主要なモダンブラウザ（Chrome、Firefox、Safari、Edge）でサポート
+- 古いブラウザではClipboard APIが利用できない場合があるため、エラーハンドリングが重要

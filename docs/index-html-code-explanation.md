@@ -522,13 +522,14 @@ index.html
       background-color: var(--assistant-message-color);
       box-shadow: var(--shadow);
       animation: fadeIn 0.3s ease;
+      position: relative;
     }
     .user-message { align-self: flex-end; background-color: var(--user-message-color); }
     .assistant-message { align-self: flex-start; background-color: var(--assistant-message-color); }
 ```
 
 **202行目**: コメント - メッセージカードのスタイリング
-**203-214行目**: メッセージの基本スタイル
+**203-215行目**: メッセージの基本スタイル
   - **204行目**: 最大幅85%
   - **205行目**: パディング（上下0.75rem、左右1rem）
   - **206行目**: 角の丸みを設定
@@ -538,8 +539,9 @@ index.html
   - **210行目**: 背景色をアシスタントメッセージ用の色に設定
   - **211行目**: 影を追加
   - **212行目**: フェードインアニメーション（0.3秒、イージング付き）
-**214行目**: ユーザーメッセージは右寄せ、背景色を変更
-**215行目**: アシスタントメッセージは左寄せ、背景色を変更
+  - **213行目**: 相対位置指定（コピーボタンを絶対位置で配置するため）
+**215行目**: ユーザーメッセージは右寄せ、背景色を変更
+**216行目**: アシスタントメッセージは左寄せ、背景色を変更
 
 ```css
     .message-header {
@@ -793,6 +795,24 @@ index.html
       transition: opacity 0.2s;
     }
     .copy-btn:hover { opacity: 1; }
+    /* Copy message button styles */
+    .copy-message-btn {
+      position: absolute;
+      top: 5px;
+      right: 5px;
+      background-color: var(--accent-color);
+      color: var(--text-color);
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.7rem;
+      padding: 3px 8px;
+      opacity: 0;
+      transition: opacity 0.2s;
+      z-index: 5;
+    }
+    .message:hover .copy-message-btn { opacity: 0.8; }
+    .copy-message-btn:hover { opacity: 1 !important; }
   </style>
 ```
 
@@ -811,7 +831,24 @@ index.html
   - **335行目**: 不透明度0.8
   - **336行目**: 不透明度の変化にトランジション効果を適用（0.2秒）
 **338行目**: ホバー時に不透明度を1に変更
-**339行目**: styleタグの終了
+**339行目**: コメント - メッセージコピーボタンのスタイル
+**340-355行目**: メッセージコピーボタンのスタイル
+  - **341行目**: 絶対位置指定
+  - **342行目**: 上から5px
+  - **343行目**: 右から5px
+  - **344行目**: 背景色をアクセントカラーに設定
+  - **345行目**: テキスト色を設定
+  - **346行目**: ボーダーなし
+  - **347行目**: 角の丸み4px
+  - **348行目**: カーソルをポインターに変更
+  - **349行目**: フォントサイズ0.7rem
+  - **350行目**: パディング（上下3px、左右8px）
+  - **351行目**: 不透明度0（デフォルトで非表示）
+  - **352行目**: 不透明度の変化にトランジション効果を適用（0.2秒）
+  - **353行目**: z-indexを5に設定（他の要素より前面に表示）
+**355行目**: メッセージホバー時にコピーボタンの不透明度を0.8に変更
+**356行目**: コピーボタンホバー時に不透明度を1に変更（!importantで優先）
+**357行目**: styleタグの終了
 
 
 ### 340-449行: JavaScriptライブラリの設定
@@ -1189,18 +1226,60 @@ index.html
   - **497行目**: メトリクスをメッセージdivに追加
 
 ```javascript
+      // Add copy message button
+      const copyMessageBtn = document.createElement('button');
+      copyMessageBtn.className = 'copy-message-btn';
+      copyMessageBtn.innerHTML = '<i class="fas fa-copy"></i>';
+      copyMessageBtn.title = 'Copy message';
+      copyMessageBtn.addEventListener('click', () => {
+        // Get the text content without HTML tags
+        const textContent = contentDiv.innerText;
+        navigator.clipboard.writeText(textContent)
+          .then(() => {
+            copyMessageBtn.innerHTML = '<i class="fas fa-check"></i>';
+            setTimeout(() => {
+              copyMessageBtn.innerHTML = '<i class="fas fa-copy"></i>';
+            }, 2000);
+          })
+          .catch(err => {
+            console.error('Failed to copy message: ', err);
+          });
+      });
+      messageDiv.appendChild(copyMessageBtn);
+    
       chatContainer.appendChild(messageDiv);
       chatContainer.scrollTop = chatContainer.scrollHeight;
-    
+```
+
+**499行目**: コメント - メッセージコピーボタンを追加
+**500-519行目**: メッセージコピーボタンの作成と機能実装
+  - **500行目**: ボタン要素を作成
+  - **501行目**: ボタンのクラス名を`copy-message-btn`に設定
+  - **502行目**: ボタンの内容をFont Awesomeのコピーアイコンに設定
+  - **503行目**: ボタンのツールチップを「Copy message」に設定
+  - **504行目**: ボタンのクリックイベントリスナーを追加
+  - **505行目**: コメント - HTMLタグを除いたテキストコンテンツを取得
+  - **506行目**: コンテンツdivのテキストコンテンツを取得
+  - **507行目**: Clipboard APIを使用してテキストをクリップボードにコピー
+  - **508-513行目**: コピー成功時の処理
+    - **509行目**: ボタンのアイコンをチェックマークに変更
+    - **510-512行目**: 2秒後にボタンのアイコンを元に戻す
+  - **514-516行目**: コピー失敗時の処理
+    - **515行目**: エラーをコンソールに出力
+  - **517行目**: イベントリスナーの終了
+  - **518行目**: ボタンをメッセージdivに追加
+
+**520-521行目**: メッセージをチャットコンテナに追加し、スクロール
+  - **520行目**: メッセージdivをチャットコンテナに追加
+  - **521行目**: チャットコンテナを最下部までスクロール
+
+```javascript
       messageDiv.querySelectorAll('pre code').forEach(block => {
         hljs.highlightElement(block);
       });
 ```
 
-**500-505行目**: メッセージをチャットコンテナに追加し、スクロール、シンタックスハイライトを適用
-  - **500行目**: メッセージdivをチャットコンテナに追加
-  - **501行目**: チャットコンテナを最下部までスクロール
-  - **503-505行目**: メッセージ内のすべてのコードブロックにHighlight.jsを適用
+**523-525行目**: メッセージ内のすべてのコードブロックにHighlight.jsを適用
 
 ```javascript
       if (typeof MathJax !== 'undefined') {

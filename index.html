@@ -452,6 +452,32 @@
     let chats = [];
     let currentChat = null;
     
+    // Load saved settings from localStorage
+    function loadSettings() {
+      const savedServerUrl = localStorage.getItem('lmstudio_server_url');
+      const savedModel = localStorage.getItem('lmstudio_model');
+      
+      if (savedServerUrl) {
+        serverUrlInput.value = savedServerUrl;
+      }
+      
+      if (savedModel) {
+        currentModel = savedModel;
+      }
+    }
+    
+    // Save settings to localStorage
+    function saveSettings() {
+      const serverUrl = serverUrlInput.value.trim();
+      if (serverUrl) {
+        localStorage.setItem('lmstudio_server_url', serverUrl);
+      }
+      
+      if (currentModel) {
+        localStorage.setItem('lmstudio_model', currentModel);
+      }
+    }
+    
     // Helper: Attach copy code buttons to code blocks
     function attachCopyButtons(container) {
       container.querySelectorAll('pre').forEach(pre => {
@@ -668,6 +694,9 @@
       }
       currentModel = newModel;
       modelSelect.disabled = false;
+      
+      // Save settings to localStorage when model changes
+      saveSettings();
     });
     
     // Connect to server and populate model dropdown.
@@ -694,11 +723,24 @@
             modelSelect.appendChild(option);
           });
           modelSelect.disabled = false;
-          currentModel = modelSelect.value;
+          
+          // Restore saved model if it exists in the model list
+          const savedModel = localStorage.getItem('lmstudio_model');
+          if (savedModel && Array.from(modelSelect.options).some(opt => opt.value === savedModel)) {
+            modelSelect.value = savedModel;
+            currentModel = savedModel;
+          } else {
+            currentModel = modelSelect.value;
+          }
+          
           isConnected = true;
           updateConnectionStatus('Connected', true);
           userInput.disabled = false;
           sendButton.disabled = false;
+          
+          // Save settings to localStorage
+          saveSettings();
+          
           if (!currentChat) createNewChat();
           // Display connection message without storing it in the chat history
           addMessage('Connected to LM Studio server. You can start chatting now!', false, null, false);
@@ -881,6 +923,9 @@
     sendButton.addEventListener('click', sendMessage);
     newChatButton.addEventListener('click', () => { createNewChat(); });
     toggleSidebarButton.addEventListener('click', () => { chatSidebar.classList.toggle('collapsed'); });
+    
+    // Load saved settings on page load
+    loadSettings();
     
     serverUrlInput.focus();
   </script>

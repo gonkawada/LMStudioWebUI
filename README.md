@@ -24,42 +24,12 @@ LM Studio Chat WebUIは、ローカルでホストされているLM Studioサー
 - **メッセージコピーボタン** - ユーザーとアシスタントのメッセージをワンクリックでコピー
 - **サーバー設定の永続化** - サーバーアドレスと選択したモデルをブラウザに保存し、リロード後も復元
 
-## スクリーンショット 📸
-
-![image](https://github.com/user-attachments/assets/7944a30a-6e52-467b-bf27-309f8db0bfde)
-![image](https://github.com/user-attachments/assets/cecc2e50-1583-4ce6-a092-10adcb2359f3)
-![image](https://github.com/user-attachments/assets/717bb8c6-ff62-4574-95e4-146909302180)
-![image](https://github.com/user-attachments/assets/22275a46-f332-4ab9-b727-678a98aef7af)
-![image](https://github.com/user-attachments/assets/d7cba468-166b-4d74-a98a-37ca72093b83)
-
 ## セットアップ手順
 
 ### デスクトップユーザー向け
 
 1. このリポジトリから`index.html`ファイルをダウンロードします。
 2. アクセスしやすい場所にファイルを保存します。
-
-### モバイルユーザー向け
-
-Androidデバイスでは標準で動作します。iOSの場合は、Microsoft Edgeまたは他のブラウザでファイルを開く必要があります。SafariやChromeでは動作しません。
-
-モバイルデバイスに`index.html`ファイルを転送する方法はいくつかあります：
-
-1. **直接ダウンロード**：
-   - モバイルデバイスのWebブラウザでこのリポジトリを開きます。
-   - `index.html`ファイルを見つけて、デバイスに直接ダウンロードします。
-
-2. **メールで送信**：
-   - コンピューターで`index.html`ファイルをダウンロードします。
-   - 添付ファイルとして自分宛にメールを送信します。
-   - モバイルデバイスでメールを開き、添付ファイルをダウンロードします。
-
-3. **クラウドストレージ**：
-   - `index.html`ファイルをGoogle Drive、Dropbox、iCloudなどのクラウドストレージサービスにアップロードします。
-   - 各クラウドストレージアプリを使用して、モバイルデバイスからファイルにアクセスします。
-
-4. **ファイル転送アプリ**：
-   - AirDrop（iOSデバイス用）やニアバイシェア（Androidデバイス用）などのアプリを使用して、コンピューターからモバイルデバイスにファイルを転送します。
 
 ## 使用方法
 

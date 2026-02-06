@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>メッセージコピーボタン テスト</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
+  <style>
+    :root {
+      --background-color: #1e0a3c;
+      --text-color: #ffffff;
+      --user-message-color: #6c2d8c;
+      --assistant-message-color: #442a6f;
+      --accent-color: #bb86fc;
+      --border-radius: 8px;
+      --shadow: 0 2px 8px rgba(0,0,0,0.3);
+    }
+    
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--background-color);
+      color: var(--text-color);
+      padding: 2rem;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    
+    h1 {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    
+    .test-section {
+      margin-bottom: 2rem;
+      padding: 1rem;
+      background: rgba(255,255,255,0.05);
+      border-radius: var(--border-radius);
+    }
+    
+    .message {
+      max-width: 85%;
+      padding: 0.75rem 1rem;
+      border-radius: var(--border-radius);
+      word-wrap: break-word;
+      font-size: 0.95rem;
+      line-height: 1.5;
+      box-shadow: var(--shadow);
+      margin-bottom: 1rem;
+      position: relative;
+    }
+    
+    .user-message {
+      background-color: var(--user-message-color);
+      margin-left: auto;
+    }
+    
+    .assistant-message {
+      background-color: var(--assistant-message-color);
+      margin-right: auto;
+    }
+    
+    .message-header {
+      font-weight: 600;
+      margin-bottom: 0.35rem;
+      font-size: 0.85rem;
+    }
+    
+    .message-content {
+      margin-bottom: 0.5rem;
+    }
+    
+    .copy-message-btn {
+      position: absolute;
+      top: 5px;
+      right: 5px;
+      background-color: var(--accent-color);
+      color: var(--text-color);
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.7rem;
+      padding: 3px 8px;
+      opacity: 0;
+      transition: opacity 0.2s;
+      z-index: 5;
+    }
+    
+    .message:hover .copy-message-btn {
+      opacity: 0.8;
+    }
+    
+    .copy-message-btn:hover {
+      opacity: 1 !important;
+    }
+    
+    .test-result {
+      padding: 1rem;
+      margin-top: 1rem;
+      border-radius: var(--border-radius);
+      background: rgba(0,255,0,0.1);
+      border: 1px solid rgba(0,255,0,0.3);
+    }
+    
+    .instructions {
+      background: rgba(255,255,0,0.1);
+      border: 1px solid rgba(255,255,0,0.3);
+      padding: 1rem;
+      border-radius: var(--border-radius);
+      margin-bottom: 2rem;
+    }
+  </style>
+</head>
+<body>
+  <h1>🧪 メッセージコピーボタン テスト</h1>
+  
+  <div class="instructions">
+    <h3>📋 テスト手順</h3>
+    <ol>
+      <li>各メッセージにマウスをホバーして、右上にコピーボタンが表示されることを確認</li>
+      <li>コピーボタンをクリック</li>
+      <li>テキストエディタやメモ帳に貼り付けて、内容が正しくコピーされていることを確認</li>
+      <li>コピー成功時にアイコンがチェックマークに変わることを確認</li>
+    </ol>
+  </div>
+  
+  <div class="test-section">
+    <h2>テスト1: シンプルなテキストメッセージ</h2>
+    <div class="message user-message">
+      <div class="message-header">You</div>
+      <div class="message-content">こんにちは!これはテストメッセージです。</div>
+      <button class="copy-message-btn" title="Copy message">
+        <i class="fas fa-copy"></i>
+      </button>
+    </div>
+    
+    <div class="message assistant-message">
+      <div class="message-header">Assistant</div>
+      <div class="message-content">こんにちは!お手伝いできることがあれば教えてください。</div>
+      <button class="copy-message-btn" title="Copy message">
+        <i class="fas fa-copy"></i>
+      </button>
+    </div>
+  </div>
+  
+  <div class="test-section">
+    <h2>テスト2: 複数行のテキスト</h2>
+    <div class="message user-message">
+      <div class="message-header">You</div>
+      <div class="message-content">
+        これは複数行のメッセージです。<br>
+        2行目のテキスト。<br>
+        3行目のテキスト。
+      </div>
+      <button class="copy-message-btn" title="Copy message">
+        <i class="fas fa-copy"></i>
+      </button>
+    </div>
+  </div>
+  
+  <div class="test-section">
+    <h2>テスト3: 長いメッセージ</h2>
+    <div class="message assistant-message">
+      <div class="message-header">Assistant</div>
+      <div class="message-content">
+        これは非常に長いメッセージのテストです。Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+        Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, 
+        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
+        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+      </div>
+      <button class="copy-message-btn" title="Copy message">
+        <i class="fas fa-copy"></i>
+      </button>
+    </div>
+  </div>
+  
+  <div class="test-result">
+    <h3>✅ テスト結果</h3>
+    <p>すべてのメッセージでコピーボタンが正しく動作することを確認してください。</p>
+    <ul>
+      <li>ホバー時にボタンが表示される</li>
+      <li>クリックでテキストがコピーされる</li>
+      <li>コピー成功時にアイコンが変わる</li>
+      <li>2秒後にアイコンが元に戻る</li>
+    </ul>
+  </div>
+  
+  <script>
+    // Add copy functionality to all copy buttons
+    document.querySelectorAll('.copy-message-btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        const messageContent = this.parentElement.querySelector('.message-content');
+        const textContent = messageContent.innerText;
+        
+        navigator.clipboard.writeText(textContent)
+          .then(() => {
+            this.innerHTML = '<i class="fas fa-check"></i>';
+            setTimeout(() => {
+              this.innerHTML = '<i class="fas fa-copy"></i>';
+            }, 2000);
+          })
+          .catch(err => {
+            console.error('Failed to copy message: ', err);
+            alert('コピーに失敗しました: ' + err.message);
+          });
+      });
+    });
+  </script>
+</body>
+</html>

@@ -919,6 +919,36 @@ test('空メッセージの送信防止', () => {
 
 **検証: 要件 18.6**
 
+### プロパティ48: ページ読み込み時の設定復元
+
+*任意の*ページ読み込み時に、システムはlocalStorageから保存されたサーバーアドレスとモデルを読み込み、UI要素に反映する必要があります。
+
+**検証: 要件 19.1, 19.2**
+
+### プロパティ49: 接続成功時の設定保存
+
+*任意の*サーバー接続成功時に、システムはサーバーアドレスをlocalStorageに保存する必要があります。
+
+**検証: 要件 19.3**
+
+### プロパティ50: モデル選択時の設定保存
+
+*任意の*モデル選択変更時に、システムは選択されたモデルをlocalStorageに保存する必要があります。
+
+**検証: 要件 19.4**
+
+### プロパティ51: 保存されたモデルの自動選択
+
+*任意の*サーバー接続成功時に、保存されたモデルがモデル一覧に存在する場合、システムはそのモデルを自動的に選択する必要があります。
+
+**検証: 要件 19.5**
+
+### プロパティ52: デフォルトモデルの選択
+
+*任意の*サーバー接続成功時に、保存されたモデルがモデル一覧に存在しない場合、システムはデフォルトのモデル（一覧の最初のモデル）を選択する必要があります。
+
+**検証: 要件 19.6**
+
 ## コンポーネント: メッセージコピーボタン
 
 ### 責務
@@ -1013,3 +1043,147 @@ messageDiv.appendChild(copyMessageBtn);
 - Clipboard APIはHTTPS環境またはlocalhostでのみ動作
 - 主要なモダンブラウザ（Chrome、Firefox、Safari、Edge）でサポート
 - 古いブラウザではClipboard APIが利用できない場合があるため、エラーハンドリングが重要
+
+## コンポーネント: サーバー設定永続化
+
+### 責務
+サーバーアドレスと選択したモデルをブラウザのlocalStorageに保存し、ページリロード後も自動的に復元する機能を提供します。
+
+### 実装詳細
+
+**localStorage キー**:
+- `lmstudio_server_url`: サーバーアドレスを保存
+- `lmstudio_model`: 選択したモデルIDを保存
+
+**主要関数**:
+
+```javascript
+// Load saved settings from localStorage
+function loadSettings() {
+  const savedServerUrl = localStorage.getItem('lmstudio_server_url');
+  const savedModel = localStorage.getItem('lmstudio_model');
+  
+  if (savedServerUrl) {
+    serverUrlInput.value = savedServerUrl;
+  }
+  
+  if (savedModel) {
+    currentModel = savedModel;
+  }
+}
+
+// Save settings to localStorage
+function saveSettings() {
+  const serverUrl = serverUrlInput.value.trim();
+  if (serverUrl) {
+    localStorage.setItem('lmstudio_server_url', serverUrl);
+  }
+  
+  if (currentModel) {
+    localStorage.setItem('lmstudio_model', currentModel);
+  }
+}
+```
+
+**呼び出しタイミング**:
+
+1. **ページ読み込み時**:
+```javascript
+// ページ読み込み完了後に設定を復元
+loadSettings();
+```
+
+2. **接続成功時**:
+```javascript
+async function connectToServer() {
+  // ... 接続処理 ...
+  if (接続成功) {
+    // 設定を保存
+    saveSettings();
+  }
+}
+```
+
+3. **モデル選択変更時**:
+```javascript
+modelSelect.addEventListener('change', async (e) => {
+  // ... モデル変更処理 ...
+  currentModel = newModel;
+  
+  // 設定を保存
+  saveSettings();
+});
+```
+
+4. **保存されたモデルの復元**:
+```javascript
+async function connectToServer() {
+  // ... モデル一覧取得 ...
+  
+  // 保存されたモデルを復元
+  const savedModel = localStorage.getItem('lmstudio_model');
+  if (savedModel && Array.from(modelSelect.options).some(opt => opt.value === savedModel)) {
+    modelSelect.value = savedModel;
+    currentModel = savedModel;
+  } else {
+    currentModel = modelSelect.value;
+  }
+  
+  // 設定を保存
+  saveSettings();
+}
+```
+
+### 主要機能
+
+1. **自動復元**
+   - ページ読み込み時にlocalStorageから設定を読み込む
+   - サーバーURL入力フィールドに自動入力
+   - 接続成功後、保存されたモデルを自動選択
+
+2. **自動保存**
+   - 接続成功時にサーバーアドレスを保存
+   - モデル選択変更時にモデルIDを保存
+   - 非同期処理で保存操作を実行
+
+3. **エラーハンドリング**
+   - 保存されたモデルがモデル一覧に存在しない場合、デフォルトモデルを選択
+   - localStorageが利用できない環境でもエラーを発生させない
+
+### データフロー
+
+```
+ページ読み込み
+    ↓
+loadSettings() 実行
+    ↓
+localStorage から読み込み
+    ↓
+UI要素に反映
+    ↓
+ユーザーが接続ボタンをクリック
+    ↓
+connectToServer() 実行
+    ↓
+接続成功
+    ↓
+saveSettings() 実行
+    ↓
+localStorage に保存
+    ↓
+保存されたモデルを復元
+    ↓
+モデル選択ドロップダウンに反映
+```
+
+### ブラウザ互換性
+
+- localStorageは主要なモダンブラウザでサポート
+- プライベートブラウジングモード（シークレットモード）では制限がある場合がある
+- ブラウザのキャッシュクリア時に設定も削除される
+
+### セキュリティ考慮事項
+
+- localStorageはドメインごとに分離されている
+- HTTPSでない環境でも動作するが、セキュリティ上の理由からHTTPSの使用を推奨
+- 機密情報（パスワードなど）は保存しない（現在はサーバーアドレスとモデルIDのみ）

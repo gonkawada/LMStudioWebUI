@@ -1,105 +1,193 @@
-⚠️ This is an **unofficial** project and is **not affiliated with or endorsed by LM Studio**.
+# LM Studio Chat WebUI（非公式）
 
-# LM Studio Chat WebUI(unofficial)
+⚠️ これは**非公式**プロジェクトであり、**LM Studioによって承認または推奨されているものではありません**。
 
-This is a simple, browser-based chat interface for interacting with your LM Studio server. It allows you to connect to your locally hosted LM Studio model and chat with it from any device with a web browser, including mobile phones.
-This is a personal project - no pull requests are accepted at this time. 
+## 概要
 
-## Features
+LM Studio Chat WebUIは、ローカルでホストされているLM Studioサーバーと対話するためのシンプルなブラウザベースのチャットインターフェースです。モバイルフォンを含む、Webブラウザを搭載した任意のデバイスから、ローカルにホストされたLM Studioモデルとチャットできます。
 
-- Dark mode interface
-- Connect to any LM Studio server
-- Chat with your LM Studio model
-- LaTeX Math Rendering and Markdown Rendering
-- Mobile-friendly design
-- Super Cool new Purple theme
-- Chats
-- Vision Model Support 
-- Choose your model 
-- Delete Chats
-- **Copy message button** - One-click copy for user and assistant messages 
+これは個人プロジェクトであり、現時点ではプルリクエストは受け付けていません。
 
+## 主な機能
 
-## Screenshots 📸
+- **ダークモードインターフェース** - 目に優しい紫をベースとしたテーマ
+- **LM Studioサーバーへの接続** - 任意のLM Studioサーバーに接続可能
+- **AIモデルとのチャット** - ローカルのLM Studioモデルと対話
+- **LaTeX数式レンダリング** - 数学的な表現を美しく表示
+- **Markdownレンダリング** - リッチテキストフォーマットをサポート
+- **コードブロックのシンタックスハイライト** - プログラミングコードを見やすく表示
+- **モバイルフレンドリーなデザイン** - スマートフォンやタブレットでも快適に使用可能
+- **複数チャットセッション管理** - 複数の会話を整理して管理
+- **ビジョンモデル対応** - 画像をアップロードしてAIに分析させることが可能
+- **モデル選択機能** - 利用可能なモデルから選択可能
+- **チャット削除機能** - 不要なチャットを削除可能
+- **メッセージコピーボタン** - ユーザーとアシスタントのメッセージをワンクリックでコピー
+- **サーバー設定の永続化** - サーバーアドレスと選択したモデルをブラウザに保存し、リロード後も復元
+
+## スクリーンショット 📸
+
 ![image](https://github.com/user-attachments/assets/7944a30a-6e52-467b-bf27-309f8db0bfde)
 ![image](https://github.com/user-attachments/assets/cecc2e50-1583-4ce6-a092-10adcb2359f3)
 ![image](https://github.com/user-attachments/assets/717bb8c6-ff62-4574-95e4-146909302180)
 ![image](https://github.com/user-attachments/assets/22275a46-f332-4ab9-b727-678a98aef7af)
 ![image](https://github.com/user-attachments/assets/d7cba468-166b-4d74-a98a-37ca72093b83)
 
+## セットアップ手順
 
+### デスクトップユーザー向け
 
+1. このリポジトリから`index.html`ファイルをダウンロードします。
+2. アクセスしやすい場所にファイルを保存します。
 
-## Setup Instructions
+### モバイルユーザー向け
 
-### For Desktop Users
+Androidデバイスでは標準で動作します。iOSの場合は、Microsoft Edgeまたは他のブラウザでファイルを開く必要があります。SafariやChromeでは動作しません。
 
-1. Download the `index.html` file from this repository.
-2. Save it to a location on your computer that you can easily access.
+モバイルデバイスに`index.html`ファイルを転送する方法はいくつかあります：
 
-### For Mobile Users
-This works out of the box on Android devices. For iOS you need to open the file in Microsoft Edge or another browser. Safari/Chrome do not work. 
-There are several ways to get the `index.html` file on your mobile device:
+1. **直接ダウンロード**：
+   - モバイルデバイスのWebブラウザでこのリポジトリを開きます。
+   - `index.html`ファイルを見つけて、デバイスに直接ダウンロードします。
 
-1. **Direct Download**: 
-   - Open this repository on your mobile device's web browser.
-   - Find the `index.html` file and download it directly to your device.
+2. **メールで送信**：
+   - コンピューターで`index.html`ファイルをダウンロードします。
+   - 添付ファイルとして自分宛にメールを送信します。
+   - モバイルデバイスでメールを開き、添付ファイルをダウンロードします。
 
-2. **Email to Yourself**:
-   - Download the `index.html` file on your computer.
-   - Email it to yourself as an attachment.
-   - Open the email on your mobile device and download the attachment.
+3. **クラウドストレージ**：
+   - `index.html`ファイルをGoogle Drive、Dropbox、iCloudなどのクラウドストレージサービスにアップロードします。
+   - 各クラウドストレージアプリを使用して、モバイルデバイスからファイルにアクセスします。
 
-3. **Cloud Storage**:
-   - Upload the `index.html` file to a cloud storage service like Google Drive, Dropbox, or iCloud.
-   - Access the file from your mobile device using the respective cloud storage app.
+4. **ファイル転送アプリ**：
+   - AirDrop（iOSデバイス用）やニアバイシェア（Androidデバイス用）などのアプリを使用して、コンピューターからモバイルデバイスにファイルを転送します。
 
-4. **File Transfer Apps**:
-   - Use apps like AirDrop (for iOS devices) or nearby sharing (for Android devices) to transfer the file from your computer to your mobile device.
+## 使用方法
 
-## Usage Instructions
+### 1. LM Studioサーバーを起動
 
-1. **Start LM Studio Server**:
-   - Open LM Studio on your computer.
-   - Go to the "Server" tab (In 0.3.x -> Developer -> Local Server).
-   - Ensure that CORS is enabled and Serve on Local Network is enabled.
-   - Click "Start Server" and note down the server address.
+- コンピューターでLM Studioを開きます。
+- 「Server」タブに移動します（バージョン0.3.x以降では、Developer → Local Server）。
+- CORSが有効になっており、「Serve on Local Network」が有効になっていることを確認します。
+- 「Start Server」をクリックし、サーバーアドレスをメモします。
 
-2. **Open the Chat Interface**:
-   - On desktop: Double-click the `index.html` file to open it in your default web browser.
-   - On mobile: Use a file manager app to locate the downloaded `index.html` file and open it with your web browser.
+### 2. チャットインターフェースを開く
 
-3. **Connect to LM Studio Server**:
-   - In the chat interface, enter the LM Studio server address in the input field at the top. 
-   - Click the "Connect" button.
+- **デスクトップ**：`index.html`ファイルをダブルクリックして、デフォルトのWebブラウザで開きます。
+- **モバイル**：ファイルマネージャーアプリを使用してダウンロードした`index.html`ファイルを見つけ、Webブラウザで開きます。
 
-4. **Start Chatting**:
-   - Once connected, you can start typing messages in the input field at the bottom of the screen.
-   - Press Enter or tap Send to send your message.
-   - The model's responses will appear in the chat window.
+### 3. LM Studioサーバーに接続
 
-## Troubleshooting
+- チャットインターフェースの上部にある入力フィールドに、LM Studioサーバーアドレスを入力します。
+- 「Connect」ボタンをクリックします。
+- 接続が成功すると、サーバーアドレスと選択したモデルがブラウザに保存され、次回のページ読み込み時に自動的に復元されます。
 
-- **Can't connect to server**: 
-  - Ensure LM Studio Server is running on your computer.
-  - Check that you're using the correct server address.
-  - If accessing from another device, make sure both devices are on the same network.
+### 4. チャットを開始
 
-- **Slow responses**: 
-  - LM Studio processing speed depends on your computer's capabilities. Larger models may take longer to respond.
+- 接続が完了したら、画面下部の入力フィールドにメッセージを入力できます。
+- Enterキーを押すか、送信ボタンをタップしてメッセージを送信します。
+- モデルのレスポンスがチャットウィンドウに表示されます。
 
-- **Interface not loading**: 
-  - Try opening the `index.html` file with a different web browser.
+### 5. その他の機能
 
-## Security Note
+- **モデルの変更**：ドロップダウンメニューから別のモデルを選択できます。選択したモデルは自動的に保存されます。
+- **新しいチャット**：サイドバーの「New Chat」ボタンをクリックして、新しい会話を開始します。
+- **チャットの切り替え**：サイドバーのチャット一覧から別のチャットをクリックして切り替えます。
+- **チャットの削除**：チャット項目を右クリックして「Delete Chat」を選択します。
+- **画像のアップロード**：画像アイコンをクリックして画像をアップロードし、ビジョンモデルに分析させます。
+- **メッセージのコピー**：メッセージにホバーしてコピーボタンをクリックすると、メッセージ内容をクリップボードにコピーできます。
 
-This interface is designed for local use only. Do not expose your LM Studio server to the public internet without proper security measures in place.
+## トラブルシューティング
 
-## Feedback and Contributions
+### サーバーに接続できない
 
-This is a personal project. While the code is public for anyone to use and learn from, I am **not accepting pull requests** for new features or bug fixes. If you find an issue or have a suggestion, please open an issue to discuss it.
-Pull Requests are automatically closed and not welcome. 
+- LM Studioサーバーがコンピューター上で実行されていることを確認してください。
+- 正しいサーバーアドレスを使用していることを確認してください。
+- 別のデバイスからアクセスしている場合は、両方のデバイスが同じネットワーク上にあることを確認してください。
+- LM StudioでCORSと「Serve on Local Network」が有効になっていることを確認してください。
 
-## Star History
+### レスポンスが遅い
 
-[![Star History Chart](https://api.star-history.com/svg?repos=YorkieDev/LMStudioWebUI&type=Date)](https://star-history.com/#YorkieDev/LMStudioWebUI&Date)
+- LM Studioの処理速度は、コンピューターの性能に依存します。大きなモデルはレスポンスに時間がかかる場合があります。
+- より小さなモデルを選択するか、コンピューターのリソースを確認してください。
+
+### インターフェースが読み込まれない
+
+- 別のWebブラウザで`index.html`ファイルを開いてみてください。
+- ブラウザのコンソールでエラーメッセージを確認してください（F12キーを押して開発者ツールを開きます）。
+
+### 保存された設定が復元されない
+
+- ブラウザのlocalStorageが有効になっていることを確認してください。
+- プライベートブラウジングモード（シークレットモード）では、設定が保存されない場合があります。
+- ブラウザのキャッシュやCookieをクリアすると、保存された設定も削除されます。
+
+## セキュリティに関する注意
+
+このインターフェースはローカル使用のみを目的として設計されています。適切なセキュリティ対策を講じずに、LM Studioサーバーを公開インターネットに公開しないでください。
+
+## フィードバックと貢献
+
+これは個人プロジェクトです。コードは誰でも使用および学習できるように公開されていますが、新機能やバグ修正のための**プルリクエストは受け付けていません**。問題を見つけた場合や提案がある場合は、Issueを開いて議論してください。
+
+プルリクエストは自動的にクローズされ、歓迎されません。
+
+## ライセンス
+
+このプロジェクトのライセンスについては、LICENSEファイルを参照してください。
+
+## 技術スタック
+
+- **HTML5** - 単一ファイルアプリケーション
+- **CSS3** - カスタム紫テーマ
+- **Vanilla JavaScript (ES6+)** - フレームワークなし
+- **Marked.js** - Markdownレンダリング
+- **Highlight.js** - コードシンタックスハイライト
+- **MathJax** - LaTeX数式レンダリング
+- **Font Awesome** - アイコン
+- **LM Studio API** - ローカルAIモデルとの統合
+
+## プロジェクト構造
+
+```
+LMStudioWebUI/
+├── index.html              # メインアプリケーションファイル
+├── README.md               # このファイル（日本語版）
+├── LICENSE                 # ライセンス情報
+├── contributing.md         # 貢献ガイドライン
+├── IMPLEMENTATION_SUMMARY.md  # 実装サマリー
+├── docs/                   # ドキュメントフォルダ
+│   ├── index-html-code-explanation.md  # コード解説
+│   └── message-copy-button-feature.md  # メッセージコピー機能の説明
+├── .kiro/                  # 仕様ドキュメント
+│   └── specs/
+│       └── lm-studio-chat-webui/
+│           ├── requirements.md  # 要件定義書
+│           ├── design.md        # 設計書
+│           └── tasks.md         # 実装計画
+└── test-copy-button.html   # テストページ
+```
+
+## 開発者向け情報
+
+このプロジェクトの詳細な技術仕様については、以下のドキュメントを参照してください：
+
+- **要件定義書**: `.kiro/specs/lm-studio-chat-webui/requirements.md`
+- **設計書**: `.kiro/specs/lm-studio-chat-webui/design.md`
+- **実装計画**: `.kiro/specs/lm-studio-chat-webui/tasks.md`
+- **コード解説**: `docs/index-html-code-explanation.md`
+
+## 更新履歴
+
+### 最新の更新
+
+- **サーバー設定の永続化機能** - サーバーアドレスと選択したモデルをlocalStorageに保存し、ページリロード後も自動的に復元
+- **メッセージコピーボタン** - ユーザーとアシスタントのメッセージをワンクリックでクリップボードにコピー
+- **ビジョンモデル対応** - 画像をアップロードしてAIに分析させることが可能
+- **複数チャットセッション管理** - 複数の会話を整理して管理
+- **Markdownレンダリング** - リッチテキストフォーマットをサポート
+- **LaTeX数式レンダリング** - 数学的な表現を美しく表示
+- **コードブロックのシンタックスハイライト** - プログラミングコードを見やすく表示
+
+---
+
+**注意**: このプロジェクトはLM Studioの公式プロジェクトではありません。LM Studio APIを使用したサードパーティのクライアントアプリケーションです。

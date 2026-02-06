@@ -252,3 +252,17 @@ LM Studio Chat WebUIは、ローカルでホストされているLM Studio API�
 6. WHEN コピーが失敗する THEN THE System SHALL エラーをコンソールに記録する
 7. THE System SHALL コピーボタンをメッセージの右上に配置する
 8. THE System SHALL コピーボタンにツールチップ「Copy message」を表示する
+
+### 要件19: サーバー設定の永続化
+
+**ユーザーストーリー:** ユーザーとして、一度入力したサーバーアドレスと選択したモデルがブラウザに保存され、ページをリロードしても復元されるようにしたい。これにより、毎回サーバー情報を再入力する手間を省ける。
+
+#### 受入基準
+
+1. WHEN ページが読み込まれる THEN THE System SHALL localStorageから保存されたサーバーアドレスとモデルを読み込む
+2. WHEN 保存されたサーバーアドレスが存在する THEN THE System SHALL サーバーURL入力フィールドに自動的に入力する
+3. WHEN サーバーへの接続が成功する THEN THE System SHALL サーバーアドレスをlocalStorageに保存する
+4. WHEN モデル選択が変更される THEN THE System SHALL 選択されたモデルをlocalStorageに保存する
+5. WHEN サーバーへの接続が成功し、保存されたモデルがモデル一覧に存在する THEN THE System SHALL そのモデルを自動的に選択する
+6. WHEN 保存されたモデルがモデル一覧に存在しない THEN THE System SHALL デフォルトのモデル（一覧の最初のモデル）を選択する
+7. THE System SHALL localStorageのキー名として'lmstudio_server_url'と'lmstudio_model'を使用する
